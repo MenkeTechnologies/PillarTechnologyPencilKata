@@ -13,6 +13,7 @@ mvn test
 ```
 To run just the InvalidHoursStarting test (replace InvalidHoursStarting with another method name to run any other single test)
 ```
+git clone https://github.com/MenkeTechnologies/PillarTechnologyPencilKata.git
 cd PillarTechnologyPencilKata
 mvn compile
 mvn '-Dtest=PencilWriteTest#whenPencilWritesToPaperThePaperReturnsContents' test
