@@ -25,6 +25,15 @@ public class PencilWriteTest {
         assertEquals(text, paper.getContents());
     }
 
+    @Test
+    public void whenPencilAppendsToPaperThePaperReturnsContents(){
+        String text = "She sells sea shells";
+        String secondText = " down by the sea shore";
+        paper.eraseAndSetContents(text);
+        pencil.write(secondText);
+        assertEquals(text + secondText , paper.getContents());
+    }
+
 
 
 
