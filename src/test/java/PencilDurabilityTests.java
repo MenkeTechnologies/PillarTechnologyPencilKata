@@ -155,5 +155,16 @@ public class PencilDurabilityTests {
     }
 
 
+    @Test
+    public void pencilErasingOfCharactersStopsWhenPencilHasEraserDurabilityOfZero(){
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,
+                3);
+        Paper newPaper = new Paper();
+        pencil.setPaperToWriteTo(newPaper);
+        pencil.write("Buffalo Bill");
+        pencil.erase("Bill");
+        String textRemaining = "Buffalo B   ";
+        assertEquals(textRemaining, newPaper.getContents());
 
+    }
 }
