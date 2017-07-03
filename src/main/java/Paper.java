@@ -8,6 +8,9 @@ public class Paper {
     public void addContent(String contents) {
         this.contents += contents;
     }
+    public void addCharacter(Character character){
+        this.contents += character;
+    }
 
     public void eraseAndSetContents(String contents) {
         this.contents = contents;

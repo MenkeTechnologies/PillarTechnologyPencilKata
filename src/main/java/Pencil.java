@@ -37,15 +37,22 @@ public class Pencil {
      */
     public void write(String content){
         if (paper != null) {
-            paper.addContent(content);
-            IntStream textCharactersStream = content.chars().filter(c->c != ' ' && c != '\n');
 
-            Integer uppercaseCharacterCount = (int)textCharactersStream.filter(Character::isUpperCase).count();
-            //what about punctuation
-            Integer lowercaseCharacterCount = (int)content.chars().filter(Character::isLowerCase).count();
+            for (int i = 0; i < content.length(); i++) {
+                Character currentCharacter = content.charAt(i);
+                if (Character.isUpperCase(currentCharacter)){
+                    pointDurability -= PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST;
+                }
+                //how should punctuation be counted?
+                if (Character.isLowerCase(currentCharacter)){
+                    pointDurability -= PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST;
+                }
 
-            this.pointDurability -= (uppercaseCharacterCount * PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST
-                    + lowercaseCharacterCount * PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST);
+                if (pointDurability >= 0){
+                    paper.addCharacter(currentCharacter);
+                }
+            }
+
         }
 
 

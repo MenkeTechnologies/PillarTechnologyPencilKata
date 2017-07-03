@@ -46,7 +46,7 @@ public class PencilWriteTest {
     }
 
     @Test
-    public void whenPencilWritesLowerCaseLettersPointDurabilityDecreasesBy1(){
+    public void whenPencilWritesLowerCaseLettersPointDurabilityDecreasesByOne(){
         Integer startingDurability = pencil.getPointDurability();
         String text = "hello world";
         pencil.write(text);
@@ -68,7 +68,7 @@ public class PencilWriteTest {
 
 
     @Test
-    public void whenPencilWritesUpperCaseLettersPointDurabilityDecreasesBy2(){
+    public void whenPencilWritesUpperCaseLettersPointDurabilityDecreasesByTwo(){
         Integer startingDurability = pencil.getPointDurability();
         String text = "UPPERCASE CHARS";
         pencil.write(text);
@@ -87,6 +87,8 @@ public class PencilWriteTest {
         assertEquals(expectedDurability, pencil.getPointDurability());
 
     }
+
+
 
 
 
