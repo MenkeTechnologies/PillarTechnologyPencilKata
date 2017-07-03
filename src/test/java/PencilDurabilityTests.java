@@ -86,7 +86,7 @@ public class PencilDurabilityTests {
 
     @Test
     public void whenPencilPointDurabilityDoesNotReachZeroCharactersWrittenNormally() {
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,4);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, 4);
         String text = "text";
         Paper cleanSheet = new Paper();
         pencil.setPaperToWriteTo(cleanSheet);
@@ -97,7 +97,7 @@ public class PencilDurabilityTests {
     @Test
     public void whenPencilPointDurabilityReachesZeroCharactersWrittenAsSpaces() {
 
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,4);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, 4);
         String tooMuchText = "Text";
         Paper anotherCleanSheet = new Paper();
         pencil.setPaperToWriteTo(anotherCleanSheet);
@@ -108,7 +108,7 @@ public class PencilDurabilityTests {
     @Test
     public void sharpeningPencilRestoresPointDurabilityToInitialPointDurability() {
 
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
         pencil.setPaperToWriteTo(paper);
         pencil.write("test text");
         pencil.sharpen();
@@ -121,13 +121,13 @@ public class PencilDurabilityTests {
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
         pencil.setPaperToWriteTo(paper);
         pencil.sharpen();
-        Integer pencilLengthAfterSharpening = PencilDefaults.DEFAULT_PENCIL_LENGTH-1;
+        Integer pencilLengthAfterSharpening = PencilDefaults.DEFAULT_PENCIL_LENGTH - 1;
 
-        assertEquals(pencilLengthAfterSharpening,pencil.getLength());
+        assertEquals(pencilLengthAfterSharpening, pencil.getLength());
     }
 
     @Test
-    public void whenPencilLengthIsZeroSharpeningDoesNotRestorePointDurability(){
+    public void whenPencilLengthIsZeroSharpeningDoesNotRestorePointDurability() {
 
         pencil = new Pencil(1, PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
         pencil.setPaperToWriteTo(paper);
@@ -135,9 +135,22 @@ public class PencilDurabilityTests {
         Integer zeroLength = 0;
         assertEquals(zeroLength, pencil.getLength());
         pencil.write("example TEXT");
-
         pencil.sharpen();
         assertNotEquals(PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY, pencil.getPointDurability());
+    }
 
+    @Test
+    public void whenPencilErasesTextFromPaperLastOccurenceOfErasedTextIsReplacedWithSpaces() {
+        Paper thirdCleanSheet = new Paper();
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
+        pencil.setPaperToWriteTo(thirdCleanSheet);
+        pencil.write("How much wood would a woodchuck chuck if a woodchuck could chuck wood?");
+        String textToErase = "chuck";
+        pencil.erase(textToErase);
+        String textWithSingleEraseOfChuck = "How much wood would a woodchuck chuck if a woodchuck could       wood?";
+        assertEquals(textWithSingleEraseOfChuck, thirdCleanSheet.getContents());
+        String textWithDoubleEraseOfChuck = "How much wood would a woodchuck chuck if a wood      could       wood?";
+        pencil.erase(textToErase);
+        assertEquals(textWithDoubleEraseOfChuck, thirdCleanSheet.getContents());
     }
 }

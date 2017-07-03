@@ -7,10 +7,10 @@ class PointDurability {
     public static final Integer UPPERCASE_CHARCTER_DURABILITY_COST = 2;
     public static final Integer LOWERCASE_CHARCTER_DURABILITY_COST = 1;
 }
-class PencilDefaults{
+
+class PencilDefaults {
     public static final Integer DEFAULT_PENCIL_LENGTH = 100;
     public static final Integer DEFAULT_PENCIL_INITIAL_POINT_DURABILITY = 40_000;
-
 }
 
 class SpecialCharacters {
@@ -74,14 +74,33 @@ public class Pencil {
                     paper.addCharacter(SpecialCharacters.SPACE);
                 }
             }
+        } else {
+            System.err.println("No paper to write to.");
         }
     }
 
     public void sharpen() {
         length--;
-        if (length > 0){
+        if (length > 0) {
             pointDurability = maximumPointDurability;
         }
+    }
 
+    public void erase(String textToErase) {
+        if (paper != null) {
+
+            Integer lengthToErase = textToErase.length();
+            Integer startindIndex = paper.getContents().lastIndexOf(textToErase);
+            Integer endingIndex = startindIndex + lengthToErase;
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(paper.getContents().substring(0, startindIndex));
+            for (int i = startindIndex; i < endingIndex; i++) {
+                stringBuilder.append(SpecialCharacters.SPACE);
+            }
+            stringBuilder.append(paper.getContents().substring(endingIndex));
+            paper.eraseAndSetContents(stringBuilder.toString());
+        } else {
+            System.err.println("No paper to write to.");
+        }
     }
 }
