@@ -41,12 +41,30 @@ public class PencilWriteTest {
         pencil.setPaperToWriteTo(paper);
         String text = " \n \n ";
         pencil.write(text);
-
         assertEquals(startingDurability, pencil.getPointDurability());
 
     }
 
+    @Test
+    public void whenPencilWritesLowerCaseLettersPointDurabilityDecreasesBy1(){
+        Integer startingDurability = pencil.getPointDurability();
+        String text = "hello world";
+        pencil.write(text);
+        Integer lowerCaseCount = 0;
 
+        for (int i = 0; i < text.length(); i++) {
+            if (Character.isLowerCase(text.charAt(i))){
+                lowerCaseCount++;
+            }
+        }
+
+        Integer durabilityLoss = lowerCaseCount * PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST;
+
+        Integer expectedDurability = startingDurability - durabilityLoss;
+
+        assertEquals(expectedDurability, pencil.getPointDurability());
+
+    }
 
 
 

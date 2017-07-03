@@ -31,16 +31,22 @@ public class Pencil {
         this.paper = paper;
     }
 
+    /**
+     * writes characters to the paper as long as paper object has been set
+     * @param content the textual content to write to the paper
+     */
     public void write(String content){
-        paper.addContent(content);
-        IntStream textCharactersStream = content.chars().filter(c->c != ' ' && c != '\n');
+        if (paper != null) {
+            paper.addContent(content);
+            IntStream textCharactersStream = content.chars().filter(c->c != ' ' && c != '\n');
 
-        Integer uppercaseCharacterCount = (int)textCharactersStream.filter(Character::isUpperCase).count();
-        //what about punctuation
-        Integer lowercaseCharacterCount = (int)content.chars().filter(Character::isLowerCase).count();
+            Integer uppercaseCharacterCount = (int)textCharactersStream.filter(Character::isUpperCase).count();
+            //what about punctuation
+            Integer lowercaseCharacterCount = (int)content.chars().filter(Character::isLowerCase).count();
 
-        this.pointDurability -= (uppercaseCharacterCount * PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST
-                + lowercaseCharacterCount * PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST);
+            this.pointDurability -= (uppercaseCharacterCount * PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST
+                    + lowercaseCharacterCount * PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST);
+        }
 
 
     }
