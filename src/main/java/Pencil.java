@@ -6,10 +6,11 @@ import java.util.stream.IntStream;
 class PointDurability {
     public static final Integer UPPERCASE_CHARCTER_DURABILITY_COST = 2;
     public static final Integer LOWERCASE_CHARCTER_DURABILITY_COST = 1;
-    public static final Integer DEFAULT_STARTING_POINT_DURABILITY = 100;
 }
 class PencilDefaults{
     public static final Integer DEFAULT_PENCIL_LENGTH = 100;
+    public static final Integer DEFAULT_PENCIL_INITIAL_POINT_DURABILITY = 40_000;
+
 }
 
 class SpecialCharacters {
@@ -33,7 +34,7 @@ public class Pencil {
     }
 
     public Pencil(Integer length) {
-        this(length, PointDurability.DEFAULT_STARTING_POINT_DURABILITY);
+        this(length, PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
     }
 
     public Integer getPointDurability() {
@@ -54,6 +55,7 @@ public class Pencil {
      * @param content the textual content to write to the paper
      */
     public void write(String content) {
+
         if (paper != null) {
 
             for (int i = 0; i < content.length(); i++) {
@@ -77,7 +79,7 @@ public class Pencil {
 
     public void sharpen() {
         length--;
-        if (length >0){
+        if (length > 0){
             pointDurability = maximumPointDurability;
         }
 

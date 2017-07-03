@@ -35,12 +35,13 @@ public class PencilDurabilityTests {
 
     @Test
     public void whenPencilWritesSpacesAndNewlinesPointDurabilityRemainsSame() {
-        Integer startingDurability = PointDurability.DEFAULT_STARTING_POINT_DURABILITY;
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,startingDurability);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,
+                PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
         pencil.setPaperToWriteTo(paper);
         String text = " \n \n ";
         pencil.write(text);
-        assertEquals(startingDurability, pencil.getPointDurability());
+        assertEquals(PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY,
+                pencil.getPointDurability());
     }
 
     @Test
@@ -106,21 +107,24 @@ public class PencilDurabilityTests {
 
     @Test
     public void sharpeningPencilRestoresPointDurabilityToInitialPointDurability() {
-        Integer initialPointDurability = 40_000;
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,initialPointDurability);
+
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
         pencil.setPaperToWriteTo(paper);
         pencil.write("test text");
         pencil.sharpen();
 
-        assertEquals(initialPointDurability, pencil.getPointDurability());
+        assertEquals(PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY, pencil.getPointDurability());
     }
 
     @Test
     public void pencilLengthReducedByOneWhenSharpened() {
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
+        pencil.setPaperToWriteTo(paper);
         pencil.sharpen();
         Integer pencilLengthAfterSharpening = PencilDefaults.DEFAULT_PENCIL_LENGTH-1;
 
         assertEquals(pencilLengthAfterSharpening,pencil.getLength());
     }
+
+   
 }
