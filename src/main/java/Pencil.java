@@ -108,34 +108,41 @@ public class Pencil {
      * erases text from the paper object if it exists
      *
      * @param textToErase the text to erase from the paper object
-     *
      */
     public Integer erase(String textToErase) {
         if (paper != null) {
 
             Integer lengthToErase = textToErase.length();
             Integer startingIndexTextToErase = paper.getContents().lastIndexOf(textToErase);
-            Integer endingIndexTextToErase = startingIndexTextToErase + lengthToErase;
-            StringBuilder nonErasedRegionsStringBuilder = new StringBuilder();
-            nonErasedRegionsStringBuilder.append(paper.getContents().substring(0, startingIndexTextToErase));
+            Integer endingIndexTextToErase = startingIndexTextToErase + lengthToErase-1;
+            StringBuilder uneditedRegionsStringBuilder = new StringBuilder();
+            //head end of text unaffected by erasure
+            uneditedRegionsStringBuilder.append(paper.getContents().substring(0, startingIndexTextToErase));
+            //text affected by erasure
+            StringBuilder newStringToReplaceErasedString = new StringBuilder();
 
-            StringBuilder erasedString = new StringBuilder();
+            //loop backwards from ending index of text to erase until starting index of text to erase
 
-            //loop backwards
-            for (int i = endingIndexTextToErase - 1; i >= startingIndexTextToErase; i--) {
+            for (int i = endingIndexTextToErase; i >= startingIndexTextToErase; i--) {
                 char currentCharacter = paper.getContents().charAt(i);
                 if (eraserDurability > 0) {
-                    erasedString.append(SpecialCharacters.SPACE);
+                    //if eraser is not expended then add space to replacement string
+
+                    newStringToReplaceErasedString.append(SpecialCharacters.SPACE);
                     if (!Character.isWhitespace(currentCharacter)) {
                         eraserDurability--;
                     }
                 } else {
-                    erasedString.append(currentCharacter);
+                    //if erase is expended add back original character
+                    newStringToReplaceErasedString.append(currentCharacter);
                 }
             }
-            nonErasedRegionsStringBuilder.append(erasedString.reverse());
-            nonErasedRegionsStringBuilder.append(paper.getContents().substring(endingIndexTextToErase));
-            paper.eraseAndSetContents(nonErasedRegionsStringBuilder.toString());
+            //we appended to replacement string in reverse order so we must reverse this string to put
+            //into right order
+            uneditedRegionsStringBuilder.append(newStringToReplaceErasedString.reverse());
+            //add end part of text not affected by erasure
+            uneditedRegionsStringBuilder.append(paper.getContents().substring(endingIndexTextToErase+1));
+            paper.eraseAndSetContents(uneditedRegionsStringBuilder.toString());
 
             return startingIndexTextToErase;
         } else {
