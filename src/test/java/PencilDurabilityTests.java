@@ -6,13 +6,13 @@ import static org.junit.Assert.*;
 /**
  * Created by jacobmenke on 6/27/17.
  */
-public class PencilWriteTest {
+public class PencilDurabilityTests {
     Pencil pencil;
     Paper paper;
 
     @Before
     public void setup() {
-        pencil = new Pencil();
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
         paper = new Paper();
         pencil.setPaperToWriteTo(paper);
     }
@@ -36,7 +36,7 @@ public class PencilWriteTest {
     @Test
     public void whenPencilWritesSpacesAndNewlinesPointDurabilityRemainsSame() {
         Integer startingDurability = PointDurability.DEFAULT_STARTING_POINT_DURABILITY;
-        pencil = new Pencil(startingDurability);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,startingDurability);
         pencil.setPaperToWriteTo(paper);
         String text = " \n \n ";
         pencil.write(text);
@@ -85,7 +85,7 @@ public class PencilWriteTest {
 
     @Test
     public void whenPencilPointDurabilityDoesNotReachZeroCharactersWrittenNormally() {
-        pencil = new Pencil(4);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,4);
         String text = "text";
         Paper cleanSheet = new Paper();
         pencil.setPaperToWriteTo(cleanSheet);
@@ -96,7 +96,7 @@ public class PencilWriteTest {
     @Test
     public void whenPencilPointDurabilityReachesZeroCharactersWrittenAsSpaces() {
 
-        pencil = new Pencil(4);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,4);
         String tooMuchText = "Text";
         Paper anotherCleanSheet = new Paper();
         pencil.setPaperToWriteTo(anotherCleanSheet);
@@ -107,7 +107,7 @@ public class PencilWriteTest {
     @Test
     public void sharpeningPencilRestoresPointDurabilityToInitialPointDurability() {
         Integer initialPointDurability = 40_000;
-        pencil = new Pencil(initialPointDurability);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,initialPointDurability);
         pencil.setPaperToWriteTo(paper);
         pencil.write("test text");
         pencil.sharpen();
@@ -117,6 +117,10 @@ public class PencilWriteTest {
 
     @Test
     public void pencilLengthReducedByOneWhenSharpened() {
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
+        pencil.sharpen();
+        Integer pencilLengthAfterSharpening = PencilDefaults.DEFAULT_PENCIL_LENGTH-1;
 
+        assertEquals(pencilLengthAfterSharpening,pencil.getLength());
     }
 }

@@ -8,6 +8,9 @@ class PointDurability {
     public static final Integer LOWERCASE_CHARCTER_DURABILITY_COST = 1;
     public static final Integer DEFAULT_STARTING_POINT_DURABILITY = 100;
 }
+class PencilDefaults{
+    public static final Integer DEFAULT_PENCIL_LENGTH = 100;
+}
 
 class SpecialCharacters {
     public static final Character SPACE = ' ';
@@ -17,14 +20,20 @@ public class Pencil {
     private Paper paper;
     private Integer pointDurability;
     private Integer maximumPointDurability;
+    private Integer length;
 
-    public Pencil(Integer pointDurability) {
+    public Integer getLength() {
+        return length;
+    }
+
+    public Pencil(Integer length, Integer pointDurability) {
+        this.length = length;
         this.maximumPointDurability = pointDurability;
         this.pointDurability = maximumPointDurability;
     }
 
-    public Pencil() {
-        this(PointDurability.DEFAULT_STARTING_POINT_DURABILITY);
+    public Pencil(Integer length) {
+        this(length, PointDurability.DEFAULT_STARTING_POINT_DURABILITY);
     }
 
     public Integer getPointDurability() {
@@ -67,6 +76,10 @@ public class Pencil {
     }
 
     public void sharpen() {
-        pointDurability = maximumPointDurability;
+        length--;
+        if (length >0){
+            pointDurability = maximumPointDurability;
+        }
+
     }
 }
