@@ -153,4 +153,7 @@ public class PencilDurabilityTests {
         pencil.erase(textToErase);
         assertEquals(textWithDoubleEraseOfChuck, thirdCleanSheet.getContents());
     }
+
+
+
 }

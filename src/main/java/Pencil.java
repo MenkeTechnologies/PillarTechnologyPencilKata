@@ -1,3 +1,5 @@
+import java.awt.print.Pageable;
+
 /**
  * Created by jacobmenke on 7/2/17.
  */
@@ -90,35 +92,51 @@ public class Pencil {
         }
     }
 
+    /**
+     * sharpens the pencil point restoring point durability and reduces the pencil length
+     * if the pencil length is greater than zero
+     */
+
     public void sharpen() {
-        length--;
+
         if (length > 0) {
+            length--;
             pointDurability = initialPointDurability;
         }
     }
 
+    /**
+     * erases text from the paper object if it exists
+     * @param textToErase the text to erase from the paper object
+     */
     public void erase(String textToErase) {
         if (paper != null) {
 
             Integer lengthToErase = textToErase.length();
-            Integer startindIndex = paper.getContents().lastIndexOf(textToErase);
-            Integer endingIndex = startindIndex + lengthToErase;
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(paper.getContents().substring(0, startindIndex));
-            for (int i = endingIndex; i > startindIndex; i--) {
+            Integer startingIndexTextToErase = paper.getContents().lastIndexOf(textToErase);
+            Integer endingIndexTextToErase = startingIndexTextToErase + lengthToErase;
+            StringBuilder nonErasedRegionsStringBuilder = new StringBuilder();
+            nonErasedRegionsStringBuilder.append(paper.getContents().substring(0, startingIndexTextToErase));
+
+            StringBuilder erasedString = new StringBuilder();
+
+            //loop backwards
+            for (int i = endingIndexTextToErase-1; i >= startingIndexTextToErase; i--) {
+                char currentCharacter = paper.getContents().charAt(i);
                 if (eraserDurability > 0) {
-                    stringBuilder.append(SpecialCharacters.SPACE);
-                    if (!Character.isWhitespace(paper.getContents().charAt(i))) {
+                    erasedString.append(SpecialCharacters.SPACE);
+                    if (!Character.isWhitespace(currentCharacter)) {
                         eraserDurability--;
                     }
                 } else {
-                    System.err.println("My eraser is worn out. Buy a new pencil!");
-                    break;
+                    erasedString.append(currentCharacter);
+
                 }
 
             }
-            stringBuilder.append(paper.getContents().substring(endingIndex));
-            paper.eraseAndSetContents(stringBuilder.toString());
+            nonErasedRegionsStringBuilder.append(erasedString.reverse());
+            nonErasedRegionsStringBuilder.append(paper.getContents().substring(endingIndexTextToErase));
+            paper.eraseAndSetContents(nonErasedRegionsStringBuilder.toString());
         } else {
             System.err.println("No paper to write to.");
         }
