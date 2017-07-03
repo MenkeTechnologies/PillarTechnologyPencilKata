@@ -34,6 +34,19 @@ public class PencilWriteTest {
         assertEquals(text + secondText , paper.getContents());
     }
 
+    @Test
+    public void whenPencilWritesSpacesAndNewlinesPointDurabilityRemainsSame(){
+        Integer startingDurability = PointDurability.DEFAULT_STARTING_POINT_DURABILITY;
+        pencil = new Pencil(startingDurability);
+        pencil.setPaperToWriteTo(paper);
+        String text = " \n \n ";
+        pencil.write(text);
+
+        assertEquals(startingDurability, pencil.getPointDurability());
+
+    }
+
+
 
 
 
