@@ -112,6 +112,17 @@ public class PencilWriteTest {
 
 
 
+    @Test
+    public void sharpeningPencilRestoresPointDurabilityToInitialPointDurability(){
+        Integer initialPointDurability = 40_000;
+        pencil = new Pencil(initialPointDurability);
+        pencil.setPaperToWriteTo(paper);
+        pencil.write("test text");
+        pencil.sharpen();
+
+        assertEquals(initialPointDurability, pencil.getPointDurability());
+
+    }
 
 
 

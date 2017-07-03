@@ -18,17 +18,23 @@ public class Pencil {
 
     private Paper paper;
     private Integer pointDurability;
+    private Integer maximumPointDurability;
 
     public Pencil(Integer pointDurability) {
-        this.pointDurability = pointDurability;
+        this.maximumPointDurability = pointDurability;
+        this.pointDurability = maximumPointDurability;
     }
 
     public Pencil() {
-        pointDurability = PointDurability.DEFAULT_STARTING_POINT_DURABILITY;
+        this(PointDurability.DEFAULT_STARTING_POINT_DURABILITY);
     }
 
     public Integer getPointDurability() {
         return pointDurability;
+    }
+
+    public Integer getMaximumPointDurability() {
+        return maximumPointDurability;
     }
 
     public void setPaperToWriteTo(Paper paper) {
@@ -61,6 +67,11 @@ public class Pencil {
 
         }
 
+
+    }
+
+    public void sharpen() {
+        pointDurability = maximumPointDurability;
 
     }
 }
