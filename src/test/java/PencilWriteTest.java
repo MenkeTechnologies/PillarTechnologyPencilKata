@@ -67,6 +67,28 @@ public class PencilWriteTest {
     }
 
 
+    @Test
+    public void whenPencilWritesUpperCaseLettersPointDurabilityDecreasesBy2(){
+        Integer startingDurability = pencil.getPointDurability();
+        String text = "UPPERCASE CHARS";
+        pencil.write(text);
+        Integer upperCaseCount = 0;
+
+        for (int i = 0; i < text.length(); i++) {
+            if (Character.isUpperCase(text.charAt(i))){
+                upperCaseCount++;
+            }
+        }
+
+        Integer durabilityLoss = upperCaseCount * PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST;
+
+        Integer expectedDurability = startingDurability - durabilityLoss;
+
+        assertEquals(expectedDurability, pencil.getPointDurability());
+
+    }
+
+
 
 
 
