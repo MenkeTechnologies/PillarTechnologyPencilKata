@@ -10,6 +10,10 @@ class PointDurability{
     public static final Integer DEFAULT_STARTING_POINT_DURABILITY = 100;
 }
 
+class SpecialCharacters{
+    public static final Character SPACE = ' ';
+}
+
 public class Pencil {
 
     private Paper paper;
@@ -50,6 +54,8 @@ public class Pencil {
 
                 if (pointDurability >= 0){
                     paper.addCharacter(currentCharacter);
+                } else {
+                    paper.addCharacter(SpecialCharacters.SPACE);
                 }
             }
 

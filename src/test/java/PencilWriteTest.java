@@ -88,6 +88,28 @@ public class PencilWriteTest {
 
     }
 
+    @Test
+    public void whenPencilPointDurabilityDoesNotReachZeroCharactersWrittenNormally(){
+        pencil = new Pencil(4);
+        String text = "text";
+        Paper cleanSheet = new Paper();
+        pencil.setPaperToWriteTo(cleanSheet);
+        pencil.write(text);
+        assertEquals("text",cleanSheet.getContents());
+
+    }
+
+    @Test
+    public void whenPencilPointDurabilityReachesZeroCharactersWrittenAsSpaces(){
+
+        pencil = new Pencil(4);
+        String tooMuchText = "Text";
+        Paper anotherCleanSheet = new Paper();
+        pencil.setPaperToWriteTo(anotherCleanSheet);
+        pencil.write(tooMuchText);
+        assertEquals("Tex ", anotherCleanSheet.getContents());
+    }
+
 
 
 
