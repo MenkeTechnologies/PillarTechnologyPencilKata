@@ -96,7 +96,6 @@ public class Pencil {
      * sharpens the pencil point restoring point durability and reduces the pencil length
      * if the pencil length is greater than zero
      */
-
     public void sharpen() {
 
         if (length > 0) {
@@ -107,9 +106,11 @@ public class Pencil {
 
     /**
      * erases text from the paper object if it exists
+     *
      * @param textToErase the text to erase from the paper object
+     *
      */
-    public void erase(String textToErase) {
+    public Integer erase(String textToErase) {
         if (paper != null) {
 
             Integer lengthToErase = textToErase.length();
@@ -121,7 +122,7 @@ public class Pencil {
             StringBuilder erasedString = new StringBuilder();
 
             //loop backwards
-            for (int i = endingIndexTextToErase-1; i >= startingIndexTextToErase; i--) {
+            for (int i = endingIndexTextToErase - 1; i >= startingIndexTextToErase; i--) {
                 char currentCharacter = paper.getContents().charAt(i);
                 if (eraserDurability > 0) {
                     erasedString.append(SpecialCharacters.SPACE);
@@ -130,15 +131,17 @@ public class Pencil {
                     }
                 } else {
                     erasedString.append(currentCharacter);
-
                 }
-
             }
             nonErasedRegionsStringBuilder.append(erasedString.reverse());
             nonErasedRegionsStringBuilder.append(paper.getContents().substring(endingIndexTextToErase));
             paper.eraseAndSetContents(nonErasedRegionsStringBuilder.toString());
+
+            return startingIndexTextToErase;
         } else {
             System.err.println("No paper to write to.");
         }
+
+        return -1;
     }
 }

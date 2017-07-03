@@ -86,7 +86,9 @@ public class PencilDurabilityTests {
 
     @Test
     public void whenPencilPointDurabilityDoesNotReachZeroCharactersWrittenNormally() {
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, 4);
+        Integer examplePointDurability = 4;
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, examplePointDurability,
+                PencilDefaults.DEFAULT_PENCIL_INITIAL_ERASER_DURABILITY);
         String text = "text";
         Paper cleanSheet = new Paper();
         pencil.setPaperToWriteTo(cleanSheet);
@@ -96,8 +98,9 @@ public class PencilDurabilityTests {
 
     @Test
     public void whenPencilPointDurabilityReachesZeroCharactersWrittenAsSpaces() {
-
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, 4);
+        Integer examplePointDurability = 4;
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, examplePointDurability,
+                PencilDefaults.DEFAULT_PENCIL_INITIAL_ERASER_DURABILITY);
         String tooMuchText = "Text";
         Paper anotherCleanSheet = new Paper();
         pencil.setPaperToWriteTo(anotherCleanSheet);
@@ -167,4 +170,6 @@ public class PencilDurabilityTests {
         assertEquals(textRemaining, newPaper.getContents());
 
     }
+
+
 }
