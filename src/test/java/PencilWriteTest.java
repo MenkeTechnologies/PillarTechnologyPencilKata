@@ -1,59 +1,57 @@
 import org.junit.Before;
 import org.junit.Test;
 
-
 import static org.junit.Assert.*;
 
 /**
  * Created by jacobmenke on 6/27/17.
  */
 public class PencilWriteTest {
-   Pencil pencil;
-   Paper paper;
+    Pencil pencil;
+    Paper paper;
 
     @Before
-    public void setup(){
+    public void setup() {
         pencil = new Pencil();
         paper = new Paper();
         pencil.setPaperToWriteTo(paper);
     }
 
     @Test
-    public void whenPencilWritesToPaperThePaperReturnsContents(){
+    public void whenPencilWritesToPaperThePaperReturnsContents() {
         String text = "Hello world.";
         pencil.write(text);
         assertEquals(text, paper.getContents());
     }
 
     @Test
-    public void whenPencilAppendsToPaperThePaperReturnsContents(){
+    public void whenPencilAppendsToPaperThePaperReturnsContents() {
         String text = "She sells sea shells";
         String secondText = " down by the sea shore";
         paper.eraseAndSetContents(text);
         pencil.write(secondText);
-        assertEquals(text + secondText , paper.getContents());
+        assertEquals(text + secondText, paper.getContents());
     }
 
     @Test
-    public void whenPencilWritesSpacesAndNewlinesPointDurabilityRemainsSame(){
+    public void whenPencilWritesSpacesAndNewlinesPointDurabilityRemainsSame() {
         Integer startingDurability = PointDurability.DEFAULT_STARTING_POINT_DURABILITY;
         pencil = new Pencil(startingDurability);
         pencil.setPaperToWriteTo(paper);
         String text = " \n \n ";
         pencil.write(text);
         assertEquals(startingDurability, pencil.getPointDurability());
-
     }
 
     @Test
-    public void whenPencilWritesLowerCaseLettersPointDurabilityDecreasesByOne(){
+    public void whenPencilWritesLowerCaseLettersPointDurabilityDecreasesByOne() {
         Integer startingDurability = pencil.getPointDurability();
         String text = "hello world";
         pencil.write(text);
         Integer lowerCaseCount = 0;
 
         for (int i = 0; i < text.length(); i++) {
-            if (Character.isLowerCase(text.charAt(i))){
+            if (Character.isLowerCase(text.charAt(i))) {
                 lowerCaseCount++;
             }
         }
@@ -63,19 +61,17 @@ public class PencilWriteTest {
         Integer expectedDurability = startingDurability - durabilityLoss;
 
         assertEquals(expectedDurability, pencil.getPointDurability());
-
     }
 
-
     @Test
-    public void whenPencilWritesUpperCaseLettersPointDurabilityDecreasesByTwo(){
+    public void whenPencilWritesUpperCaseLettersPointDurabilityDecreasesByTwo() {
         Integer startingDurability = pencil.getPointDurability();
         String text = "UPPERCASE CHARS";
         pencil.write(text);
         Integer upperCaseCount = 0;
 
         for (int i = 0; i < text.length(); i++) {
-            if (Character.isUpperCase(text.charAt(i))){
+            if (Character.isUpperCase(text.charAt(i))) {
                 upperCaseCount++;
             }
         }
@@ -85,22 +81,20 @@ public class PencilWriteTest {
         Integer expectedDurability = startingDurability - durabilityLoss;
 
         assertEquals(expectedDurability, pencil.getPointDurability());
-
     }
 
     @Test
-    public void whenPencilPointDurabilityDoesNotReachZeroCharactersWrittenNormally(){
+    public void whenPencilPointDurabilityDoesNotReachZeroCharactersWrittenNormally() {
         pencil = new Pencil(4);
         String text = "text";
         Paper cleanSheet = new Paper();
         pencil.setPaperToWriteTo(cleanSheet);
         pencil.write(text);
-        assertEquals("text",cleanSheet.getContents());
-
+        assertEquals("text", cleanSheet.getContents());
     }
 
     @Test
-    public void whenPencilPointDurabilityReachesZeroCharactersWrittenAsSpaces(){
+    public void whenPencilPointDurabilityReachesZeroCharactersWrittenAsSpaces() {
 
         pencil = new Pencil(4);
         String tooMuchText = "Text";
@@ -110,10 +104,8 @@ public class PencilWriteTest {
         assertEquals("Tex ", anotherCleanSheet.getContents());
     }
 
-
-
     @Test
-    public void sharpeningPencilRestoresPointDurabilityToInitialPointDurability(){
+    public void sharpeningPencilRestoresPointDurabilityToInitialPointDurability() {
         Integer initialPointDurability = 40_000;
         pencil = new Pencil(initialPointDurability);
         pencil.setPaperToWriteTo(paper);
@@ -121,14 +113,10 @@ public class PencilWriteTest {
         pencil.sharpen();
 
         assertEquals(initialPointDurability, pencil.getPointDurability());
-
     }
 
+    @Test
+    public void pencilLengthReducedByOneWhenSharpened() {
 
-
-
-
-
-
-
+    }
 }
