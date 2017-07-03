@@ -126,5 +126,18 @@ public class PencilDurabilityTests {
         assertEquals(pencilLengthAfterSharpening,pencil.getLength());
     }
 
-   
+    @Test
+    public void whenPencilLengthIsZeroSharpeningDoesNotRestorePointDurability(){
+
+        pencil = new Pencil(1, PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
+        pencil.setPaperToWriteTo(paper);
+        pencil.sharpen();
+        Integer zeroLength = 0;
+        assertEquals(zeroLength, pencil.getLength());
+        pencil.write("example TEXT");
+
+        pencil.sharpen();
+        assertNotEquals(PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY, pencil.getPointDurability());
+
+    }
 }
