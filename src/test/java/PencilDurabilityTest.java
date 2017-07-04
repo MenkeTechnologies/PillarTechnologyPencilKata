@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 /**
  * Created by jacobmenke on 6/27/17.
  */
-public class PencilDurabilityTests {
+public class PencilDurabilityTest {
     Pencil pencil;
     Paper paper;
 
@@ -58,9 +58,7 @@ public class PencilDurabilityTests {
         }
 
         Integer durabilityLoss = lowerCaseCount * PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST;
-
         Integer expectedDurability = startingDurability - durabilityLoss;
-
         assertEquals(expectedDurability, pencil.getPointDurability());
     }
 
@@ -78,9 +76,7 @@ public class PencilDurabilityTests {
         }
 
         Integer durabilityLoss = upperCaseCount * PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST;
-
         Integer expectedDurability = startingDurability - durabilityLoss;
-
         assertEquals(expectedDurability, pencil.getPointDurability());
     }
 
@@ -157,9 +153,8 @@ public class PencilDurabilityTests {
         assertEquals(textWithDoubleErasureOfChuck, thirdCleanSheet.getContents());
     }
 
-
     @Test
-    public void pencilErasingOfCharactersStopsWhenPencilHasEraserDurabilityOfZero(){
+    public void pencilErasingOfCharactersStopsWhenPencilHasEraserDurabilityOfZero() {
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,
                 3);
         Paper newPaper = new Paper();
@@ -171,28 +166,27 @@ public class PencilDurabilityTests {
     }
 
     @Test
-    public void whenPencilWritesOverErasedTextItFitsIntoTheGivenWhiteSpaceAvailable(){
+    public void whenPencilWritesOverErasedTextItFitsIntoTheGivenWhiteSpaceAvailable() {
         String initialText = "An apple a day keeps the doctor away";
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
         Paper penultimateSheet = new Paper();
         pencil.setPaperToWriteTo(penultimateSheet);
         pencil.write(initialText);
-        Integer erasureLocation= pencil.erase("apple");
+        Integer erasureLocation = pencil.erase("apple");
         pencil.edit(erasureLocation, "onion");
         String expectedText = "An onion a day keeps the doctor away";
         assertEquals(expectedText, penultimateSheet.getContents());
     }
 
     @Test
-    public void whenWritingOverCharactersAnAtSignIsAdded(){
+    public void whenWritingOverCharactersAnAtSignIsAdded() {
         String initialText = "An apple a day keeps the doctor away";
         Paper lastSheet = new Paper();
         pencil.setPaperToWriteTo(lastSheet);
         pencil.write(initialText);
-        Integer erasureLocation= pencil.erase("apple");
+        Integer erasureLocation = pencil.erase("apple");
         pencil.edit(erasureLocation, "artichoke");
         String finalText = "An artich@k@ay keeps the doctor away";
         assertEquals(finalText, lastSheet.getContents());
     }
-
 }
