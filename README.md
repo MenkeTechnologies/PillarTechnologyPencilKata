@@ -1,4 +1,4 @@
-# Pillar Technology Kata
+# Pillar Technology Pencil Kata
 
 Kata description @ https://github.com/PillarTechnology/kata-pencil-durability 
 
