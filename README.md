@@ -16,7 +16,7 @@ To run just the whenPencilWritesToPaperThePaperReturnsContents test (replace whe
 git clone https://github.com/MenkeTechnologies/PillarTechnologyPencilKata.git
 cd PillarTechnologyPencilKata
 mvn compile
-mvn '-Dtest=PencilWriteTest#whenPencilWritesToPaperThePaperReturnsContents' test
+mvn '-Dtest=PencilDurabilityTests#whenPencilWritesToPaperThePaperReturnsContents' test
 ```
 Javadoc HTML pages are in the doc directory
 

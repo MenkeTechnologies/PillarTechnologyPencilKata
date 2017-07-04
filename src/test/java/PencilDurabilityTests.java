@@ -194,6 +194,5 @@ public class PencilDurabilityTests {
         String finalText = "An artich@k@ay keeps the doctor away";
         assertEquals(finalText, lastSheet.getContents());
     }
-    
 
 }
