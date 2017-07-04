@@ -159,6 +159,21 @@ public class Pencil {
         return -1;
     }
 
-    public void edit(Integer erasureLocation, String onion) {
+    public void edit(Integer erasureLocation, String wordToInsert) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(paper.getContents().substring(0,erasureLocation));
+
+        for (int i = 0; i < wordToInsert.length(); i++) {
+            Integer eraseLocationPlusOffset = erasureLocation + i;
+            if (Character.isWhitespace(paper.getContents().charAt(eraseLocationPlusOffset))){
+                stringBuilder.append(wordToInsert.charAt(i));
+            }else{
+                stringBuilder.append('@');
+            }
+        }
+
+
+        stringBuilder.append(paper.getContents().substring(erasureLocation+wordToInsert.length()));
+        paper.eraseAndSetContents(stringBuilder.toString());
     }
 }

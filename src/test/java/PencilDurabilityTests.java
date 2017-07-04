@@ -168,11 +168,22 @@ public class PencilDurabilityTests {
         pencil.erase("Bill");
         String textRemaining = "Buffalo B   ";
         assertEquals(textRemaining, newPaper.getContents());
-
     }
 
+    @Test
+    public void whenPencilWritesOverErasedTextItFitsIntoTheGivenWhiteSpaceAvailable(){
+        String initialText = "An apple a day keeps the doctor away";
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
+        Paper penultimateSheet = new Paper();
+        pencil.setPaperToWriteTo(penultimateSheet);
+        pencil.write(initialText);
+        Integer erasureLocation= pencil.erase("apple");
+        pencil.edit(erasureLocation, "onion");
+        String expectedText = "An onion a day keeps the doctor away";
+        assertEquals(expectedText, penultimateSheet.getContents());
+    }
 
-
+ 
 
 
 }
