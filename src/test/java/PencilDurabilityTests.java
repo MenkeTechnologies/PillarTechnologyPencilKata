@@ -152,9 +152,9 @@ public class PencilDurabilityTests {
         pencil.erase(textToErase);
         String textWithSingleEraseOfChuck = "How much wood would a woodchuck chuck if a woodchuck could       wood?";
         assertEquals(textWithSingleEraseOfChuck, thirdCleanSheet.getContents());
-        String textWithDoubleEraseOfChuck = "How much wood would a woodchuck chuck if a wood      could       wood?";
+        String textWithDoubleErasureOfChuck = "How much wood would a woodchuck chuck if a wood      could       wood?";
         pencil.erase(textToErase);
-        assertEquals(textWithDoubleEraseOfChuck, thirdCleanSheet.getContents());
+        assertEquals(textWithDoubleErasureOfChuck, thirdCleanSheet.getContents());
     }
 
 
@@ -170,6 +170,7 @@ public class PencilDurabilityTests {
         assertEquals(textRemaining, newPaper.getContents());
 
     }
+
 
 
 
