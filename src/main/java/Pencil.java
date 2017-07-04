@@ -76,10 +76,11 @@ public class Pencil {
                 if (Character.isUpperCase(currentCharacter)) {
                     pointDurability -= PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST;
                 }
-                //how should punctuation be counted?
+
                 if (Character.isLowerCase(currentCharacter)) {
                     pointDurability -= PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST;
                 }
+                //should punctuation decrease point durability?
 
                 if (pointDurability >= 0) {
                     paper.addCharacter(currentCharacter);
@@ -115,40 +116,49 @@ public class Pencil {
             Integer lengthToErase = textToErase.length();
             Integer startingIndexTextToErase = paper.getContents().lastIndexOf(textToErase);
             Integer endingIndexTextToErase = startingIndexTextToErase + lengthToErase-1;
+            //last erased location defaults to starting index of text to erase
+            //if eraser runs out during erase mark that location as last erased location
+            Integer lastErasedLocation = startingIndexTextToErase;
+
             StringBuilder uneditedRegionsStringBuilder = new StringBuilder();
             //head end of text unaffected by erasure
             uneditedRegionsStringBuilder.append(paper.getContents().substring(0, startingIndexTextToErase));
             //text affected by erasure
             StringBuilder newStringToReplaceErasedString = new StringBuilder();
+            String charactersThatCouldNotBeErasedDueToEraserMalfunction = "";
 
             //loop backwards from ending index of text to erase until starting index of text to erase
-
             for (int i = endingIndexTextToErase; i >= startingIndexTextToErase; i--) {
                 char currentCharacter = paper.getContents().charAt(i);
                 if (eraserDurability > 0) {
                     //if eraser is not expended then add space to replacement string
-
                     newStringToReplaceErasedString.append(SpecialCharacters.SPACE);
                     if (!Character.isWhitespace(currentCharacter)) {
                         eraserDurability--;
                     }
                 } else {
-                    //if erase is expended add back original character
-                    newStringToReplaceErasedString.append(currentCharacter);
+                    //if erase is expended mark this location as last erased location
+                    //add remaining characters to new replacement String and exit for loop
+                    lastErasedLocation = i;
+                    charactersThatCouldNotBeErasedDueToEraserMalfunction = paper.getContents().substring(startingIndexTextToErase, i+1);
+                    break;
                 }
             }
-            //we appended to replacement string in reverse order so we must reverse this string to put
-            //into right order
-            uneditedRegionsStringBuilder.append(newStringToReplaceErasedString.reverse());
+            //we appended to replacement string in reverse order so we must reverse this string
+            uneditedRegionsStringBuilder.append(charactersThatCouldNotBeErasedDueToEraserMalfunction).
+                    append(newStringToReplaceErasedString.reverse());
             //add end part of text not affected by erasure
             uneditedRegionsStringBuilder.append(paper.getContents().substring(endingIndexTextToErase+1));
             paper.eraseAndSetContents(uneditedRegionsStringBuilder.toString());
 
-            return startingIndexTextToErase;
+            return lastErasedLocation;
         } else {
             System.err.println("No paper to write to.");
         }
 
         return -1;
+    }
+
+    public void edit(Integer erasureLocation, String onion) {
     }
 }
