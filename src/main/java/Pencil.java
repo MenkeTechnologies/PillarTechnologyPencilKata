@@ -25,9 +25,6 @@ public class Pencil {
     private Integer eraserDurability;
     private Integer initialEraserDurability;
 
-    public Integer getLength() {
-        return length;
-    }
 
     public Pencil(Integer length, Integer pointDurability, Integer eraserDurability) {
         this.length = length;
@@ -45,17 +42,6 @@ public class Pencil {
         this(length, PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY, eraserDurability);
     }
 
-    public Integer getPointDurability() {
-        return pointDurability;
-    }
-
-    public Integer getInitialPointDurability() {
-        return initialPointDurability;
-    }
-
-    public Integer getEraserDurability() {
-        return eraserDurability;
-    }
 
     public void setPaperToWriteTo(Paper paper) {
         this.paper = paper;
@@ -177,5 +163,22 @@ public class Pencil {
 
         stringBuilder.append(paper.read().substring(erasureLocation + wordToInsert.length()));
         paper.eraseAndSetContents(stringBuilder.toString());
+    }
+
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public Integer getPointDurability() {
+        return pointDurability;
+    }
+
+    public Integer getInitialPointDurability() {
+        return initialPointDurability;
+    }
+
+    public Integer getEraserDurability() {
+        return eraserDurability;
     }
 }
