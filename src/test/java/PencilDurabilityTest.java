@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
  * Created by jacobmenke on 6/27/17.
  */
 public class PencilDurabilityTest {
-    Pencil pencil;
-    Paper paper;
+    private Pencil pencil;
+    private Paper paper;
 
     @Before
     public void setup() {
@@ -106,8 +106,8 @@ public class PencilDurabilityTest {
 
     @Test
     public void sharpeningPencilRestoresPointDurabilityToInitialPointDurability() {
-
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,
+                PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
         pencil.setPaperToWriteTo(paper);
         pencil.write("test text");
         pencil.sharpen();
@@ -121,13 +121,11 @@ public class PencilDurabilityTest {
         pencil.setPaperToWriteTo(paper);
         pencil.sharpen();
         Integer pencilLengthAfterSharpening = PencilDefaults.DEFAULT_PENCIL_LENGTH - 1;
-
         assertEquals(pencilLengthAfterSharpening, pencil.getLength());
     }
 
     @Test
     public void whenPencilLengthIsZeroSharpeningDoesNotRestorePointDurability() {
-
         pencil = new Pencil(1, PencilDefaults.DEFAULT_PENCIL_INITIAL_POINT_DURABILITY);
         pencil.setPaperToWriteTo(paper);
         pencil.sharpen();
@@ -155,8 +153,7 @@ public class PencilDurabilityTest {
 
     @Test
     public void pencilErasingOfCharactersStopsWhenPencilHasEraserDurabilityOfZero() {
-        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,
-                3);
+        pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH,3);
         Paper newPaper = new Paper();
         pencil.setPaperToWriteTo(newPaper);
         pencil.write("Buffalo Bill");
