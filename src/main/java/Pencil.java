@@ -158,7 +158,7 @@ public class Pencil {
 
     /**
      * inserts a word at a given location (index) in the paper which the pencil is writing to
-     * @param erasureLocation the last erased location for a potential edit to be madee
+     * @param erasureLocation the last erased location for a potential edit to be made
      * @param wordToInsert the word to be inserted in the erased location
      */
     public void edit(Integer erasureLocation, String wordToInsert) {
