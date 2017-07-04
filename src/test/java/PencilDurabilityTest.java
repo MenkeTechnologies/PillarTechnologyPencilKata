@@ -21,7 +21,7 @@ public class PencilDurabilityTest {
     public void whenPencilWritesToPaperThePaperReturnsContents() {
         String text = "Hello world.";
         pencil.write(text);
-        assertEquals(text, paper.getContents());
+        assertEquals(text, paper.read());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class PencilDurabilityTest {
         String secondText = " down by the sea shore";
         paper.eraseAndSetContents(text);
         pencil.write(secondText);
-        assertEquals(text + secondText, paper.getContents());
+        assertEquals(text + secondText, paper.read());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class PencilDurabilityTest {
             }
         }
 
-        Integer durabilityLoss = lowerCaseCount * PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST;
+        Integer durabilityLoss = lowerCaseCount * PointDurabilityCostConstants.LOWERCASE_CHARACTER_DURABILITY_COST;
         Integer expectedDurability = startingDurability - durabilityLoss;
         assertEquals(expectedDurability, pencil.getPointDurability());
     }
@@ -75,7 +75,7 @@ public class PencilDurabilityTest {
             }
         }
 
-        Integer durabilityLoss = upperCaseCount * PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST;
+        Integer durabilityLoss = upperCaseCount * PointDurabilityCostConstants.UPPERCASE_CHARACTER_DURABILITY_COST;
         Integer expectedDurability = startingDurability - durabilityLoss;
         assertEquals(expectedDurability, pencil.getPointDurability());
     }
@@ -89,7 +89,7 @@ public class PencilDurabilityTest {
         Paper cleanSheet = new Paper();
         pencil.setPaperToWriteTo(cleanSheet);
         pencil.write(text);
-        assertEquals("text", cleanSheet.getContents());
+        assertEquals("text", cleanSheet.read());
     }
 
     @Test
@@ -101,7 +101,7 @@ public class PencilDurabilityTest {
         Paper anotherCleanSheet = new Paper();
         pencil.setPaperToWriteTo(anotherCleanSheet);
         pencil.write(tooMuchText);
-        assertEquals("Tex ", anotherCleanSheet.getContents());
+        assertEquals("Tex ", anotherCleanSheet.read());
     }
 
     @Test
@@ -147,10 +147,10 @@ public class PencilDurabilityTest {
         String textToErase = "chuck";
         pencil.erase(textToErase);
         String textWithSingleEraseOfChuck = "How much wood would a woodchuck chuck if a woodchuck could       wood?";
-        assertEquals(textWithSingleEraseOfChuck, thirdCleanSheet.getContents());
+        assertEquals(textWithSingleEraseOfChuck, thirdCleanSheet.read());
         String textWithDoubleErasureOfChuck = "How much wood would a woodchuck chuck if a wood      could       wood?";
         pencil.erase(textToErase);
-        assertEquals(textWithDoubleErasureOfChuck, thirdCleanSheet.getContents());
+        assertEquals(textWithDoubleErasureOfChuck, thirdCleanSheet.read());
     }
 
     @Test
@@ -162,7 +162,7 @@ public class PencilDurabilityTest {
         pencil.write("Buffalo Bill");
         pencil.erase("Bill");
         String textRemaining = "Buffalo B   ";
-        assertEquals(textRemaining, newPaper.getContents());
+        assertEquals(textRemaining, newPaper.read());
     }
 
     @Test
@@ -175,7 +175,7 @@ public class PencilDurabilityTest {
         Integer erasureLocation = pencil.erase("apple");
         pencil.edit(erasureLocation, "onion");
         String expectedText = "An onion a day keeps the doctor away";
-        assertEquals(expectedText, penultimateSheet.getContents());
+        assertEquals(expectedText, penultimateSheet.read());
     }
 
     @Test
@@ -187,6 +187,6 @@ public class PencilDurabilityTest {
         Integer erasureLocation = pencil.erase("apple");
         pencil.edit(erasureLocation, "artichoke");
         String finalText = "An artich@k@ay keeps the doctor away";
-        assertEquals(finalText, lastSheet.getContents());
+        assertEquals(finalText, lastSheet.read());
     }
 }

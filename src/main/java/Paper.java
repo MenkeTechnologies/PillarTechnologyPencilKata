@@ -16,7 +16,7 @@ public class Paper {
         this.contents = contents;
     }
 
-    public String getContents() {
+    public String read() {
         return contents;
     }
 }

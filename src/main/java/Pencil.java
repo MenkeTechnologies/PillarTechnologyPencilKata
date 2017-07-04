@@ -1,11 +1,9 @@
-import java.awt.print.Pageable;
-
 /**
  * Created by jacobmenke on 7/2/17.
  */
-class PointDurability {
-    public static final Integer UPPERCASE_CHARCTER_DURABILITY_COST = 2;
-    public static final Integer LOWERCASE_CHARCTER_DURABILITY_COST = 1;
+class PointDurabilityCostConstants {
+    public static final Integer UPPERCASE_CHARACTER_DURABILITY_COST = 2;
+    public static final Integer LOWERCASE_CHARACTER_DURABILITY_COST = 1;
 }
 
 class PencilDefaults {
@@ -14,7 +12,7 @@ class PencilDefaults {
     public static final Integer DEFAULT_PENCIL_INITIAL_ERASER_DURABILITY = 40_000;
 }
 
-class SpecialCharacters {
+class PencilSpecialCharacters {
     public static final Character SPACE = ' ';
 }
 
@@ -73,19 +71,20 @@ public class Pencil {
 
             for (int i = 0; i < content.length(); i++) {
                 Character currentCharacter = content.charAt(i);
+
                 if (Character.isUpperCase(currentCharacter)) {
-                    pointDurability -= PointDurability.UPPERCASE_CHARCTER_DURABILITY_COST;
+                    pointDurability -= PointDurabilityCostConstants.UPPERCASE_CHARACTER_DURABILITY_COST;
                 }
 
                 if (Character.isLowerCase(currentCharacter)) {
-                    pointDurability -= PointDurability.LOWERCASE_CHARCTER_DURABILITY_COST;
+                    pointDurability -= PointDurabilityCostConstants.LOWERCASE_CHARACTER_DURABILITY_COST;
                 }
                 //should punctuation decrease point durability?
 
                 if (pointDurability >= 0) {
                     paper.addCharacter(currentCharacter);
                 } else {
-                    paper.addCharacter(SpecialCharacters.SPACE);
+                    paper.addCharacter(PencilSpecialCharacters.SPACE);
                 }
             }
         } else {
@@ -114,25 +113,25 @@ public class Pencil {
         if (paper != null) {
 
             Integer lengthToErase = textToErase.length();
-            Integer startingIndexTextToErase = paper.getContents().lastIndexOf(textToErase);
-            Integer endingIndexTextToErase = startingIndexTextToErase + lengthToErase-1;
+            Integer startingIndexTextToErase = paper.read().lastIndexOf(textToErase);
+            Integer endingIndexTextToErase = startingIndexTextToErase + lengthToErase - 1;
             //last erased location defaults to starting index of text to erase
             //if eraser runs out during erase mark that location as last erased location
             Integer lastErasedLocation = startingIndexTextToErase;
 
             StringBuilder uneditedRegionsStringBuilder = new StringBuilder();
             //head end of text unaffected by erasure
-            uneditedRegionsStringBuilder.append(paper.getContents().substring(0, startingIndexTextToErase));
+            uneditedRegionsStringBuilder.append(paper.read().substring(0, startingIndexTextToErase));
             //text affected by erasure
             StringBuilder newStringToReplaceErasedString = new StringBuilder();
             String charactersThatCouldNotBeErasedDueToEraserMalfunction = "";
 
             //loop backwards from ending index of text to erase until starting index of text to erase
             for (int i = endingIndexTextToErase; i >= startingIndexTextToErase; i--) {
-                char currentCharacter = paper.getContents().charAt(i);
+                char currentCharacter = paper.read().charAt(i);
                 if (eraserDurability > 0) {
                     //if eraser is not expended then add space to replacement string
-                    newStringToReplaceErasedString.append(SpecialCharacters.SPACE);
+                    newStringToReplaceErasedString.append(PencilSpecialCharacters.SPACE);
                     if (!Character.isWhitespace(currentCharacter)) {
                         eraserDurability--;
                     }
@@ -140,7 +139,7 @@ public class Pencil {
                     //if erase is expended mark this location as last erased location
                     //add remaining characters to new replacement String and exit for loop
                     lastErasedLocation = i;
-                    charactersThatCouldNotBeErasedDueToEraserMalfunction = paper.getContents().substring(startingIndexTextToErase, i+1);
+                    charactersThatCouldNotBeErasedDueToEraserMalfunction = paper.read().substring(startingIndexTextToErase, i + 1);
                     break;
                 }
             }
@@ -148,7 +147,7 @@ public class Pencil {
             uneditedRegionsStringBuilder.append(charactersThatCouldNotBeErasedDueToEraserMalfunction).
                     append(newStringToReplaceErasedString.reverse());
             //add end part of text not affected by erasure
-            uneditedRegionsStringBuilder.append(paper.getContents().substring(endingIndexTextToErase+1));
+            uneditedRegionsStringBuilder.append(paper.read().substring(endingIndexTextToErase + 1));
             paper.eraseAndSetContents(uneditedRegionsStringBuilder.toString());
 
             return lastErasedLocation;
@@ -161,19 +160,18 @@ public class Pencil {
 
     public void edit(Integer erasureLocation, String wordToInsert) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(paper.getContents().substring(0,erasureLocation));
+        stringBuilder.append(paper.read().substring(0, erasureLocation));
 
         for (int i = 0; i < wordToInsert.length(); i++) {
             Integer eraseLocationPlusOffset = erasureLocation + i;
-            if (Character.isWhitespace(paper.getContents().charAt(eraseLocationPlusOffset))){
+            if (Character.isWhitespace(paper.read().charAt(eraseLocationPlusOffset))) {
                 stringBuilder.append(wordToInsert.charAt(i));
-            }else{
+            } else {
                 stringBuilder.append('@');
             }
         }
 
-
-        stringBuilder.append(paper.getContents().substring(erasureLocation+wordToInsert.length()));
+        stringBuilder.append(paper.read().substring(erasureLocation + wordToInsert.length()));
         paper.eraseAndSetContents(stringBuilder.toString());
     }
 }
