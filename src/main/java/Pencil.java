@@ -14,6 +14,7 @@ class PencilDefaults {
 
 class PencilSpecialCharacters {
     public static final Character SPACE = ' ';
+    public static final Character OVERLAP_CHARACTER = '@';
 }
 
 public class Pencil {
@@ -170,7 +171,7 @@ public class Pencil {
             if (Character.isWhitespace(paper.read().charAt(eraseLocationPlusOffset))) {
                 stringBuilder.append(wordToInsert.charAt(i));
             } else {
-                stringBuilder.append('@');
+                stringBuilder.append(PencilSpecialCharacters.OVERLAP_CHARACTER);
             }
         }
 
