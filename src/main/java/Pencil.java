@@ -62,7 +62,6 @@ public class Pencil {
 
     /**
      * writes characters to the paper as long as paper object has been set
-     *
      * @param content the textual content to write to the paper
      */
     public void write(String content) {
@@ -106,7 +105,6 @@ public class Pencil {
 
     /**
      * erases text from the paper object if it exists
-     *
      * @param textToErase the text to erase from the paper object
      */
     public Integer erase(String textToErase) {
@@ -158,6 +156,11 @@ public class Pencil {
         return -1;
     }
 
+    /**
+     * inserts a word at a given location (index) in the paper which the pencil is writing to
+     * @param erasureLocation the last erased location for a potential edit to be madee
+     * @param wordToInsert the word to be inserted in the erased location
+     */
     public void edit(Integer erasureLocation, String wordToInsert) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(paper.read().substring(0, erasureLocation));
