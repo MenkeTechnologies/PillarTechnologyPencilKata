@@ -183,7 +183,17 @@ public class PencilDurabilityTests {
         assertEquals(expectedText, penultimateSheet.getContents());
     }
 
- 
-
+    @Test
+    public void whenWritingOverCharactersAnAtSignIsAdded(){
+        String initialText = "An apple a day keeps the doctor away";
+        Paper lastSheet = new Paper();
+        pencil.setPaperToWriteTo(lastSheet);
+        pencil.write(initialText);
+        Integer erasureLocation= pencil.erase("apple");
+        pencil.edit(erasureLocation, "artichoke");
+        String finalText = "An artich@k@ay keeps the doctor away";
+        assertEquals(finalText, lastSheet.getContents());
+    }
+    
 
 }
