@@ -21,15 +21,17 @@ public class PencilDurabilityTest {
     public void whenPencilWritesToPaperThePaperReturnsContents() {
         String text = "Hello world.";
         pencil.write(text);
-        assertEquals(text, paper.read());
+        assertEquals(text, paper.readLastSentence());
     }
 
     @Test
     public void whenPencilAppendsToPaperThePaperReturnsContents() {
         String text = "She sells sea shells";
-        String secondText = " down by the sea shore";
+        paper = new Paper(text);
+        pencil.setPaperToWriteTo(paper);
+        String secondText = " down by the sea shore.";
         pencil.write(secondText);
-        assertEquals(text + secondText, paper.read());
+        assertEquals(text + secondText, paper.readLastSentence());
     }
 
     @Test
@@ -85,10 +87,9 @@ public class PencilDurabilityTest {
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, examplePointDurability,
                 PencilDefaults.DEFAULT_PENCIL_INITIAL_ERASER_DURABILITY);
         String text = "text";
-        Paper cleanSheet = new Paper();
-        pencil.setPaperToWriteTo(cleanSheet);
+        pencil.setPaperToWriteTo(paper);
         pencil.write(text);
-        assertEquals("text", cleanSheet.read());
+        assertEquals("text", paper.readLastSentence());
     }
 
     @Test
@@ -97,10 +98,9 @@ public class PencilDurabilityTest {
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, examplePointDurability,
                 PencilDefaults.DEFAULT_PENCIL_INITIAL_ERASER_DURABILITY);
         String tooMuchText = "Text";
-        Paper anotherCleanSheet = new Paper();
-        pencil.setPaperToWriteTo(anotherCleanSheet);
+        pencil.setPaperToWriteTo(paper);
         pencil.write(tooMuchText);
-        assertEquals("Tex ", anotherCleanSheet.read());
+        assertEquals("Tex ", paper.readLastSentence());
     }
 
     @Test

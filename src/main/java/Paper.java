@@ -23,16 +23,21 @@ public class Paper {
         return contents;
     }
 
-    public String readLastSentence(){
-        Integer indexOfLastPeriod = returnNthOccurenceIndex('.',-2);
-        return contents.substring(indexOfLastPeriod+1).trim();
+    public Paper(String contents) {
+        this.contents = contents;
     }
 
-    public static void main(String[] args) {
-        String str = "Hello World.  Please take me home to the store.";
-        Paper paper = new Paper();
-        paper.eraseAndSetContents(str);
-        System.out.println(paper.readLastSentence());
+    public Paper() {
+    }
+
+    public String readLastSentence(){
+        if (contents.chars().filter(c->c=='.').count() > 1){
+            Integer indexOfSecondToLastPeriod = returnNthOccurenceIndex('.',-2);
+            return ltrim(contents.substring(indexOfSecondToLastPeriod+1));
+        } else {
+            return ltrim(contents);
+        }
+
     }
 
     private Integer returnNthOccurenceIndex(Character character, Integer nthOccurence){
@@ -52,5 +57,14 @@ public class Paper {
     public String findIndexOfLastSentenceContaining(String searchTerm){
         Pattern.compile("" + searchTerm + "").matcher(contents);
         return "";
+    }
+
+    String ltrim(String s){
+        int i = 0;
+        while (i < s.length() && Character.isWhitespace(s.charAt(i))){
+         i++;
+        }
+
+        return s.substring(i);
     }
 }
