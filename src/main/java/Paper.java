@@ -23,7 +23,6 @@ public class Paper {
 
     public static void main(String[] args) {
 
-
     }
 
     public void eraseAndSetContents(String contents) {
@@ -45,7 +44,8 @@ public class Paper {
 
         int endingPunctuationIndexAfterText = -1;
 
-        outer: for (int i = (int) contents.chars().count() - 1; i >= 0; i--) {
+        outer:
+        for (int i = (int) contents.chars().count() - 1; i >= 0; i--) {
             switch (contents.charAt(i)) {
                 case '.':
                 case '?':
@@ -80,22 +80,18 @@ public class Paper {
         } else {
             //the contents has one or fewer punctuations so just return this sentence as it must be the last sentence
             return ltrim(contents);
-
         }
-
-
     }
 
     private Integer returnNthOccurenceIndex(Integer nthOccurence, Character... characters) {
         ArrayList<Integer> indices = new ArrayList<>();
         for (int i = 0; i < contents.toCharArray().length; i++) {
 
-            for (char character:characters){
+            for (char character : characters) {
                 if (contents.charAt(i) == character) {
                     indices.add(i);
                 }
             }
-
         }
         //allow negative indexing
         if (nthOccurence < 0) {

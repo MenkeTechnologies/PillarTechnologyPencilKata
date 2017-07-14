@@ -187,7 +187,7 @@ public class PencilDurabilityTest {
     }
 
     @Test
-    public void whenReadingLastSentenceFromPaperTheLastSentenceisReturned(){
+    public void whenReadingLastSentenceFromPaperTheLastSentenceIsReturned(){
         Paper paper = new Paper();
         paper.eraseAndSetContents("Want to walk in the park?  Dog Gone it? Hello world!");
         assertEquals("Hello world!", paper.readLastSentence());
