@@ -1,16 +1,13 @@
-
+package WritingMaterials;
 import WritingMaterials.Constants.InvalidIndex;
+import WritingMaterials.Constants.SentenceDelimitingCharacters;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by jacobmenke on 7/2/17.
  */
-class SentenceDelimitingCharacters {
-    public static final Character PERIOD = '.';
-    public static final Character QUESTION_MARK = '?';
-    public static final Character EXCLAMATION_MARK = '!';
-}
 
 public class Paper {
     String contents = "";
