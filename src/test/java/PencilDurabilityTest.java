@@ -1,3 +1,7 @@
+import WritingMaterials.Constants.PencilDefaults;
+import WritingMaterials.Constants.PointDurabilityCostConstants;
+import WritingMaterials.Paper;
+import WritingMaterials.Pencil;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -13,6 +17,7 @@ public class PencilDurabilityTest {
     public void setup() {
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
         paper = new Paper();
+
         pencil.setPaperToWriteTo(paper);
     }
 

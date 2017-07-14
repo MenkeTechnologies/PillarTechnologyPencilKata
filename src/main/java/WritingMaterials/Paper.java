@@ -1,5 +1,6 @@
+package WritingMaterials;
+
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 /**
  * Created by jacobmenke on 7/2/17.
@@ -15,15 +16,15 @@ public class Paper {
 
 
 
-    public void addCharacter(Character character) {
+    void addCharacter(Character character) {
         this.contents += character;
     }
 
-    public void setContent(String contents) {
+    void setContent(String contents) {
         this.contents = contents;
     }
 
-    public String read() {
+    public String readPage() {
         return contents;
     }
 

@@ -1,22 +1,14 @@
+package WritingMaterials;
+
+import WritingMaterials.Constants.PencilDefaults;
+import WritingMaterials.Constants.PencilSpecialCharacters;
+import WritingMaterials.Constants.PointDurabilityCostConstants;
+
 /**
  * Created by jacobmenke on 7/2/17.
  */
-class PointDurabilityCostConstants {
-    public static final Integer UPPERCASE_CHARACTER_DURABILITY_COST = 2;
-    public static final Integer LOWERCASE_CHARACTER_DURABILITY_COST = 1;
-}
-
-class PencilDefaults {
-    public static final Integer DEFAULT_PENCIL_LENGTH = 100;
-    public static final Integer DEFAULT_PENCIL_INITIAL_POINT_DURABILITY = 40_000;
-    public static final Integer DEFAULT_PENCIL_INITIAL_ERASER_DURABILITY = 40_000;
-}
 
 
-class PencilSpecialCharacters {
-    public static final Character SPACE = ' ';
-    public static final Character OVERLAP_CHARACTER = '@';
-}
 
 public class Pencil {
     private Paper paper;
@@ -98,7 +90,7 @@ public class Pencil {
         if (paper != null) {
 
             Integer lengthToErase = textToErase.length();
-            Integer startingIndexTextToErase = paper.read().lastIndexOf(textToErase);
+            Integer startingIndexTextToErase = paper.readPage().lastIndexOf(textToErase);
             Integer endingIndexTextToErase = startingIndexTextToErase + lengthToErase - 1;
             //last erased location defaults to starting index of text to erase
             //if eraser runs out during erase mark that location as last erased location
@@ -106,13 +98,13 @@ public class Pencil {
 
             StringBuilder uneditedRegionsStringBuilder = new StringBuilder();
             //head end of text unaffected by erasure
-            uneditedRegionsStringBuilder.append(paper.read().substring(0, startingIndexTextToErase));
+            uneditedRegionsStringBuilder.append(paper.readPage().substring(0, startingIndexTextToErase));
             StringBuilder newStringToReplaceErasedString = new StringBuilder();
             String charactersThatCouldNotBeErasedDueToEraserMalfunction = "";
 
             //loop backwards from ending index of text to erase until starting index of text to erase
             for (int i = endingIndexTextToErase; i >= startingIndexTextToErase; i--) {
-                char currentCharacter = paper.read().charAt(i);
+                char currentCharacter = paper.readPage().charAt(i);
                 if (eraserDurability > 0) {
                     //if eraser is not expended then add space to replacement string
                     newStringToReplaceErasedString.append(PencilSpecialCharacters.SPACE);
@@ -123,7 +115,7 @@ public class Pencil {
                     //if erase is expended mark this location as last erased location
                     //add remaining characters to new replacement String and exit for loop
                     lastErasedLocation = i;
-                    charactersThatCouldNotBeErasedDueToEraserMalfunction = paper.read().substring(startingIndexTextToErase, i + 1);
+                    charactersThatCouldNotBeErasedDueToEraserMalfunction = paper.readPage().substring(startingIndexTextToErase, i + 1);
                     break;
                 }
             }
@@ -131,7 +123,7 @@ public class Pencil {
             uneditedRegionsStringBuilder.append(charactersThatCouldNotBeErasedDueToEraserMalfunction).
                     append(newStringToReplaceErasedString.reverse());
             //add end part of text not affected by erasure
-            uneditedRegionsStringBuilder.append(paper.read().substring(endingIndexTextToErase + 1));
+            uneditedRegionsStringBuilder.append(paper.readPage().substring(endingIndexTextToErase + 1));
             paper.setContent(uneditedRegionsStringBuilder.toString());
 
             return lastErasedLocation;
@@ -149,18 +141,18 @@ public class Pencil {
      */
     public void edit(Integer erasureLocation, String wordToInsert) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(paper.read().substring(0, erasureLocation));
+        stringBuilder.append(paper.readPage().substring(0, erasureLocation));
 
         for (int i = 0; i < wordToInsert.length(); i++) {
             Integer eraseLocationPlusOffset = erasureLocation + i;
-            if (Character.isWhitespace(paper.read().charAt(eraseLocationPlusOffset))) {
+            if (Character.isWhitespace(paper.readPage().charAt(eraseLocationPlusOffset))) {
                 stringBuilder.append(wordToInsert.charAt(i));
             } else {
                 stringBuilder.append(PencilSpecialCharacters.OVERLAP_CHARACTER);
             }
         }
 
-        stringBuilder.append(paper.read().substring(erasureLocation + wordToInsert.length()));
+        stringBuilder.append(paper.readPage().substring(erasureLocation + wordToInsert.length()));
         paper.setContent(stringBuilder.toString());
     }
 
