@@ -25,7 +25,7 @@ public class Paper {
 
     }
 
-    public void eraseAndSetContents(String contents) {
+    public void turnOverTheSheet(String contents) {
         this.contents = contents;
     }
 
@@ -65,13 +65,15 @@ public class Paper {
         if (contents.chars().filter(c -> c == SentenceDelimitingCharacters.PERIOD ||
                 c == SentenceDelimitingCharacters.EXCLAMATION_MARK || c == SentenceDelimitingCharacters.QUESTION_MARK).count() > 1) {
             //last sentences ends in punctuation
-            if (endingPunctuationIndexAfterText == 0) {
+            if (endingPunctuationIndexAfterText == -1) {
                 Integer lastPunctuationIndex = returnNthOccurenceIndex(-1, SentenceDelimitingCharacters.PERIOD, SentenceDelimitingCharacters.EXCLAMATION_MARK,
                         SentenceDelimitingCharacters.QUESTION_MARK);
 
                 return ltrim(contents.substring(lastPunctuationIndex + 1));
             } else {
                 //last sentence doesn't end in punctuation
+
+
                 Integer lastPunctuationIndex = returnNthOccurenceIndex(-2, SentenceDelimitingCharacters.PERIOD, SentenceDelimitingCharacters.EXCLAMATION_MARK,
                         SentenceDelimitingCharacters.QUESTION_MARK);
 

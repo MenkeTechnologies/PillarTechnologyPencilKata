@@ -134,7 +134,7 @@ public class Pencil {
                     append(newStringToReplaceErasedString.reverse());
             //add end part of text not affected by erasure
             uneditedRegionsStringBuilder.append(paper.read().substring(endingIndexTextToErase + 1));
-            paper.eraseAndSetContents(uneditedRegionsStringBuilder.toString());
+            paper.turnOverTheSheet(uneditedRegionsStringBuilder.toString());
 
             return lastErasedLocation;
         } else {
@@ -163,7 +163,7 @@ public class Pencil {
         }
 
         stringBuilder.append(paper.read().substring(erasureLocation + wordToInsert.length()));
-        paper.eraseAndSetContents(stringBuilder.toString());
+        paper.turnOverTheSheet(stringBuilder.toString());
     }
 
 

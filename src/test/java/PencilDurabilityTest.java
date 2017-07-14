@@ -189,13 +189,15 @@ public class PencilDurabilityTest {
     @Test
     public void whenReadingLastSentenceFromPaperTheLastSentenceIsReturned(){
         Paper paper = new Paper();
-        paper.eraseAndSetContents("Want to walk in the park?  Dog Gone it? Hello world!");
+        pencil.setPaperToWriteTo(paper);
+        pencil.write("Want to walk in the park?  Dog Gone it? Hello world!");
         assertEquals("Hello world!", paper.readLastSentence());
-        paper.eraseAndSetContents("Dogs are cool?Go Home to the prairie!");
+        pencil.write("Dogs are cool?Go Home to the prairie!");
         assertEquals("Go Home to the prairie!", paper.readLastSentence());
-        paper.eraseAndSetContents("This is the sentence?");
+        pencil.write("This is the sentence?");
         assertEquals("This is the sentence?", paper.readLastSentence());
-        paper.eraseAndSetContents("A sentence with no ending punctuation ");
+        pencil.write("A sentence with no ending punctuation ");
         assertEquals("A sentence with no ending punctuation ", paper.readLastSentence());
+
     }
 }
