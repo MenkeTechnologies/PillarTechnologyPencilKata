@@ -1,4 +1,3 @@
-package WritingMaterials;
 
 import WritingMaterials.Constants.InvalidIndex;
 
