@@ -59,8 +59,8 @@ public class Paper {
 
         if (contents.chars().filter(c -> c == SentenceDelimitingCharacters.PERIOD ||
                 c == SentenceDelimitingCharacters.EXCLAMATION_MARK || c == SentenceDelimitingCharacters.QUESTION_MARK).count() > 1) {
-            //last sentences doesn't end in punctuation
             if (endingPunctuationIndexAfterText == InvalidIndex.InvalidIndex) {
+                //last sentences doesn't end in punctuation
                 Integer lastPunctuationIndex = returnNthOccurenceIndex(-1, SentenceDelimitingCharacters.PERIOD, SentenceDelimitingCharacters.EXCLAMATION_MARK,
                         SentenceDelimitingCharacters.QUESTION_MARK);
 

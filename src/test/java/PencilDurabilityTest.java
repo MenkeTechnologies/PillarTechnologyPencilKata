@@ -17,7 +17,6 @@ public class PencilDurabilityTest {
     public void setup() {
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
         paper = new Paper();
-
         pencil.setPaperToWriteTo(paper);
     }
 
