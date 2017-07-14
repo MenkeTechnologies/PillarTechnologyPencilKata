@@ -12,11 +12,6 @@ class PencilDefaults {
     public static final Integer DEFAULT_PENCIL_INITIAL_ERASER_DURABILITY = 40_000;
 }
 
-class SentenceDelimitingCharacters{
-    public static final Character PERIOD = '.';
-    public static final Character QUESTION_MARK = '?';
-    public static final Character EXCLAMATION_MARK = '!';
-}
 
 class PencilSpecialCharacters {
     public static final Character SPACE = ' ';

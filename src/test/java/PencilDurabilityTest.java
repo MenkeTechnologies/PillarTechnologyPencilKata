@@ -1,6 +1,5 @@
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**
@@ -157,6 +156,7 @@ public class PencilDurabilityTest {
         pencil.setPaperToWriteTo(newPaper);
         pencil.write("Buffalo Bill");
         pencil.erase("Bill");
+
         String textRemaining = "Buffalo B   ";
         assertEquals(textRemaining, newPaper.read());
     }
@@ -183,6 +183,19 @@ public class PencilDurabilityTest {
         Integer erasureLocation = pencil.erase("apple");
         pencil.edit(erasureLocation, "artichoke");
         String finalText = "An artich@k@ay keeps the doctor away";
-        lastSheet.findIndexOfLastSentenceContaining(finalText);
+
+    }
+
+    @Test
+    public void whenReadingLastSentenceFromPaperTheLastSentenceisReturned(){
+        Paper paper = new Paper();
+        paper.eraseAndSetContents("Want to walk in the park?  Dog Gone it? Hello world!");
+        assertEquals("Hello world!", paper.readLastSentence());
+        paper.eraseAndSetContents("Dogs are cool?Go Home to the prairie!");
+        assertEquals("Go Home to the prairie!", paper.readLastSentence());
+        paper.eraseAndSetContents("This is the sentence?");
+        assertEquals("This is the sentence?", paper.readLastSentence());
+        paper.eraseAndSetContents("A sentence with no ending punctuation ");
+        assertEquals("A sentence with no ending punctuation ", paper.readLastSentence());
     }
 }
