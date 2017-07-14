@@ -1,5 +1,7 @@
 package WritingMaterials;
 
+import WritingMaterials.Constants.InvalidIndex;
+
 import java.util.ArrayList;
 
 /**
@@ -13,8 +15,6 @@ class SentenceDelimitingCharacters {
 
 public class Paper {
     String contents = "";
-
-
 
     void addCharacter(Character character) {
         this.contents += character;
@@ -37,7 +37,7 @@ public class Paper {
 
     public String readLastSentence() {
 
-        int endingPunctuationIndexAfterText = -1;
+        int endingPunctuationIndexAfterText = InvalidIndex.InvalidIndex;
 
         outer:
         for (int i = (int) contents.chars().count() - 1; i >= 0; i--) {
@@ -59,16 +59,14 @@ public class Paper {
 
         if (contents.chars().filter(c -> c == SentenceDelimitingCharacters.PERIOD ||
                 c == SentenceDelimitingCharacters.EXCLAMATION_MARK || c == SentenceDelimitingCharacters.QUESTION_MARK).count() > 1) {
-            //last sentences ends in punctuation
-            if (endingPunctuationIndexAfterText == -10) {
+            //last sentences doesn't end in punctuation
+            if (endingPunctuationIndexAfterText == InvalidIndex.InvalidIndex) {
                 Integer lastPunctuationIndex = returnNthOccurenceIndex(-1, SentenceDelimitingCharacters.PERIOD, SentenceDelimitingCharacters.EXCLAMATION_MARK,
                         SentenceDelimitingCharacters.QUESTION_MARK);
 
                 return ltrim(contents.substring(lastPunctuationIndex + 1));
             } else {
-                //last sentence doesn't end in punctuation
-
-
+                //last sentence ends in punctuation
                 Integer lastPunctuationIndex = returnNthOccurenceIndex(-2, SentenceDelimitingCharacters.PERIOD, SentenceDelimitingCharacters.EXCLAMATION_MARK,
                         SentenceDelimitingCharacters.QUESTION_MARK);
 

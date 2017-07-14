@@ -1,5 +1,6 @@
 package WritingMaterials;
 
+import WritingMaterials.Constants.InvalidIndex;
 import WritingMaterials.Constants.PencilDefaults;
 import WritingMaterials.Constants.PencilSpecialCharacters;
 import WritingMaterials.Constants.PointDurabilityCostConstants;
@@ -131,7 +132,7 @@ public class Pencil {
             System.err.println("No paper to write to.");
         }
 
-        return -1;
+        return InvalidIndex.InvalidIndex;
     }
 
     /**
@@ -156,7 +157,6 @@ public class Pencil {
         paper.setContent(stringBuilder.toString());
     }
 
-
     public Integer getLength() {
         return length;
     }
@@ -164,6 +164,4 @@ public class Pencil {
     public Integer getPointDurability() {
         return pointDurability;
     }
-
-
 }
