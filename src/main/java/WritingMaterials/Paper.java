@@ -19,11 +19,7 @@ public class Paper {
         this.contents += character;
     }
 
-    public static void main(String[] args) {
-
-    }
-
-    public void turnOverTheSheet(String contents) {
+    public void setContent(String contents) {
         this.contents = contents;
     }
 

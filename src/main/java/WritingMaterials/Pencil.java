@@ -66,8 +66,7 @@ public class Pencil {
                 if (Character.isLowerCase(currentCharacter)) {
                     pointDurability -= PointDurabilityCostConstants.LOWERCASE_CHARACTER_DURABILITY_COST;
                 }
-                //should punctuation decrease point durability?
-
+                //should punctuation decrease point durability? Not clear but defaulting to no
                 if (pointDurability >= 0) {
                     paper.addCharacter(currentCharacter);
                 } else {
@@ -108,7 +107,6 @@ public class Pencil {
             StringBuilder uneditedRegionsStringBuilder = new StringBuilder();
             //head end of text unaffected by erasure
             uneditedRegionsStringBuilder.append(paper.read().substring(0, startingIndexTextToErase));
-            //text affected by erasure
             StringBuilder newStringToReplaceErasedString = new StringBuilder();
             String charactersThatCouldNotBeErasedDueToEraserMalfunction = "";
 
@@ -134,7 +132,7 @@ public class Pencil {
                     append(newStringToReplaceErasedString.reverse());
             //add end part of text not affected by erasure
             uneditedRegionsStringBuilder.append(paper.read().substring(endingIndexTextToErase + 1));
-            paper.turnOverTheSheet(uneditedRegionsStringBuilder.toString());
+            paper.setContent(uneditedRegionsStringBuilder.toString());
 
             return lastErasedLocation;
         } else {
@@ -163,7 +161,7 @@ public class Pencil {
         }
 
         stringBuilder.append(paper.read().substring(erasureLocation + wordToInsert.length()));
-        paper.turnOverTheSheet(stringBuilder.toString());
+        paper.setContent(stringBuilder.toString());
     }
 
 
