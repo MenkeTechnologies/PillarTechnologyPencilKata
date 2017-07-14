@@ -136,53 +136,50 @@ public class PencilDurabilityTest {
 
     @Test
     public void whenPencilErasesTextFromPaperLastOccurenceOfErasedTextIsReplacedWithSpaces() {
-        Paper thirdCleanSheet = new Paper();
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
-        pencil.setPaperToWriteTo(thirdCleanSheet);
+        pencil.setPaperToWriteTo(paper);
         pencil.write("How much wood would a woodchuck chuck if a woodchuck could chuck wood?");
         String textToErase = "chuck";
         pencil.erase(textToErase);
         String textWithSingleEraseOfChuck = "How much wood would a woodchuck chuck if a woodchuck could       wood?";
-        assertEquals(textWithSingleEraseOfChuck, thirdCleanSheet.read());
+        assertEquals(textWithSingleEraseOfChuck, paper.readLastSentence());
         String textWithDoubleErasureOfChuck = "How much wood would a woodchuck chuck if a wood      could       wood?";
         pencil.erase(textToErase);
-        assertEquals(textWithDoubleErasureOfChuck, thirdCleanSheet.read());
+        assertEquals(textWithDoubleErasureOfChuck, paper.readLastSentence());
     }
 
     @Test
     public void pencilErasingOfCharactersStopsWhenPencilHasEraserDurabilityOfZero() {
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH, 3);
-        Paper newPaper = new Paper();
-        pencil.setPaperToWriteTo(newPaper);
+        pencil.setPaperToWriteTo(paper);
         pencil.write("Buffalo Bill");
         pencil.erase("Bill");
 
         String textRemaining = "Buffalo B   ";
-        assertEquals(textRemaining, newPaper.read());
+        assertEquals(textRemaining, paper.readLastSentence());
     }
 
     @Test
     public void whenPencilWritesOverErasedTextItFitsIntoTheGivenWhiteSpaceAvailable() {
         String initialText = "An apple a day keeps the doctor away";
         pencil = new Pencil(PencilDefaults.DEFAULT_PENCIL_LENGTH);
-        Paper penultimateSheet = new Paper();
-        pencil.setPaperToWriteTo(penultimateSheet);
+        pencil.setPaperToWriteTo(paper);
         pencil.write(initialText);
         Integer erasureLocation = pencil.erase("apple");
         pencil.edit(erasureLocation, "onion");
         String expectedText = "An onion a day keeps the doctor away";
-        assertEquals(expectedText, penultimateSheet.read());
+        assertEquals(expectedText, paper.readLastSentence());
     }
 
     @Test
     public void whenWritingOverCharactersAnAtSignIsAdded() {
         String initialText = "An apple a day keeps the doctor away";
-        Paper lastSheet = new Paper();
-        pencil.setPaperToWriteTo(lastSheet);
         pencil.write(initialText);
         Integer erasureLocation = pencil.erase("apple");
         pencil.edit(erasureLocation, "artichoke");
         String finalText = "An artich@k@ay keeps the doctor away";
+        assertEquals(finalText,paper.readLastSentence());
+
 
     }
 
@@ -198,6 +195,5 @@ public class PencilDurabilityTest {
         assertEquals("This is the sentence?", paper.readLastSentence());
         pencil.write("A sentence with no ending punctuation ");
         assertEquals("A sentence with no ending punctuation ", paper.readLastSentence());
-
     }
 }
