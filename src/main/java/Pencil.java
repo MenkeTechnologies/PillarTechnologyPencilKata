@@ -175,11 +175,5 @@ public class Pencil {
         return pointDurability;
     }
 
-    public Integer getInitialPointDurability() {
-        return initialPointDurability;
-    }
 
-    public Integer getEraserDurability() {
-        return eraserDurability;
-    }
 }

@@ -13,9 +13,7 @@ class SentenceDelimitingCharacters {
 public class Paper {
     String contents = "";
 
-    public void addContent(String contents) {
-        this.contents += contents;
-    }
+
 
     public void addCharacter(Character character) {
         this.contents += character;
@@ -65,7 +63,7 @@ public class Paper {
         if (contents.chars().filter(c -> c == SentenceDelimitingCharacters.PERIOD ||
                 c == SentenceDelimitingCharacters.EXCLAMATION_MARK || c == SentenceDelimitingCharacters.QUESTION_MARK).count() > 1) {
             //last sentences ends in punctuation
-            if (endingPunctuationIndexAfterText == -1) {
+            if (endingPunctuationIndexAfterText == -10) {
                 Integer lastPunctuationIndex = returnNthOccurenceIndex(-1, SentenceDelimitingCharacters.PERIOD, SentenceDelimitingCharacters.EXCLAMATION_MARK,
                         SentenceDelimitingCharacters.QUESTION_MARK);
 
