@@ -13,6 +13,7 @@ git clone https://github.com/MenkeTechnologies/PillarTechnologyPencilKata.git
 cd PillarTechnologyPencilKata
 mvn test
 ```
+![git clone and maven test](/run.png?raw=true)
 To run just the whenPencilWritesToPaperThePaperReturnsContents test (replace whenPencilWritesToPaperThePaperReturnsContents with another method name to run any other single test)
 ```
 git clone https://github.com/MenkeTechnologies/PillarTechnologyPencilKata.git
