@@ -1,5 +1,8 @@
 # Pillar Technology Pencil Kata
 
+
+![Alt text](/pencil.jpg?raw=true)
+
 Kata description @ https://github.com/PillarTechnology/kata-pencil-durability 
 
 Dependencies are Git, Maven and Java
