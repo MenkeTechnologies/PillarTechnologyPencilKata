@@ -9,8 +9,6 @@ import WritingMaterials.Constants.PointDurabilityCostConstants;
  * Created by jacobmenke on 7/2/17.
  */
 
-
-
 public class Pencil {
     private Paper paper;
     private Integer pointDurability;

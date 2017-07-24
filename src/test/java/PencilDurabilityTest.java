@@ -183,6 +183,7 @@ public class PencilDurabilityTest {
         pencil.edit(erasureLocation, "artichoke");
         String finalText = "An artich@k@ay keeps the doctor away";
         assertEquals(finalText,paper.readLastSentence());
+
     }
 
     @Test
